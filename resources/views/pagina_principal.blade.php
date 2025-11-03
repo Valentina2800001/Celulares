@@ -154,7 +154,7 @@
       margin-top: 0.8rem;
     }
     footer .social-links a {
-      margin: 0 0.8rem;
+      margin: 0 0.20rem;
       color: #3A3A3A; /* Gris oscuro frío */
       font-size: 1.2rem;
       display: inline-block;
@@ -192,58 +192,37 @@
     </ul>
     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
     @csrf
+
+    <a href="{{ route('formulario_productos') }}" class="btn btn-primary">Agregar Producto</a>
+
     <button type="submit" class="logout-btn">Cerrar sesión</button>
 </form>
 
   </nav>
 
   <main>
-    <h1>¡Bienvenido, Usuario!</h1>
+    <h1>¡Bienvenido!</h1>
     <p class="welcome-msg">Explora nuestra amplia selección de celulares y encuentra el que se adapta a ti.</p>
 
     <div class="product-grid">
-      <!-- Aquí algunos ejemplos, puedes agregar todos -->
-      <div class="product-card" title="Samsung Galaxy S24 Ultra">
-        <img class="product-image" src="https://images.samsung.com/is/image/samsung/p6pim/es/sm-s918blvbesm/gallery/es-galaxy-s24-ultra-s918-sm-s918blvbesm-533220488?$730_584_PNG$" alt="Samsung Galaxy S24 Ultra" />
-        <div class="product-info">
-          <div class="product-name">Samsung Galaxy S24 Ultra</div>
-          <div class="product-price">$1200 USD</div>
+      @forelse($productos as $producto)
+        <div class="product-card">
+          @if($producto->imagen)
+            <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="product-image">
+          @else
+            <img src="https://via.placeholder.com/220x140?text=Sin+imagen" alt="Sin imagen" class="product-image">
+          @endif
+          <div class="product-info">
+            <div class="product-name">{{ $producto->nombre }}</div>
+            <div class="product-price">${{ number_format($producto->precio, 0, ',', '.') }}</div>
+            <p>{{ $producto->descripcion }}</p>
+          </div>
         </div>
-      </div>
-
-      <div class="product-card" title="iPhone 15 Pro Max">
-        <img class="product-image" src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-max-gold-select-2023?wid=940&hei=1112&fmt=png-alpha&.v=1691642315869" alt="iPhone 15 Pro Max" />
-        <div class="product-info">
-          <div class="product-name">iPhone 15 Pro Max</div>
-          <div class="product-price">$1399 USD</div>
-        </div>
-      </div>
-
-      <div class="product-card" title="Redmi Note 13 Pro+ 5G">
-        <img class="product-image" src="https://i01.appmifile.com/webfile/globalimg/products/pc/redmi-note-13-pro/overview/01.png" alt="Redmi Note 13 Pro+ 5G" />
-        <div class="product-info">
-          <div class="product-name">Redmi Note 13 Pro+ 5G</div>
-          <div class="product-price">$399 USD</div>
-        </div>
-      </div>
-
-      <div class="product-card" title="Motorola Edge 50 Pro">
-        <img class="product-image" src="https://motorolaus.vtexassets.com/arquivos/ids/159314-800-auto?v=638123031913170000&width=800&height=auto&aspect=true" alt="Motorola Edge 50 Pro" />
-        <div class="product-info">
-          <div class="product-name">Motorola Edge 50 Pro</div>
-          <div class="product-price">$699 USD</div>
-        </div>
-      </div>
-
-      <div class="product-card" title="Huawei P60 Pro">
-        <img class="product-image" src="https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/phones/p60-pro/img/kv-phone.png" alt="Huawei P60 Pro" />
-        <div class="product-info">
-          <div class="product-name">Huawei P60 Pro</div>
-          <div class="product-price">$799 USD</div>
-        </div>
-      </div>
+      @empty
+        <p>No hay productos registrados aún.</p>
+      @endforelse
     </div>
-  </main>
+
 
   <footer>
     <p>&copy; 2025 Tienda de Celulares. Todos los derechos reservados.</p>
