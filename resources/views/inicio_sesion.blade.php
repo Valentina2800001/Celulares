@@ -143,18 +143,20 @@
       <h1>Iniciar Sesión</h1>
       <p>Accede a tu cuenta para gestionar productos y explorar ofertas exclusivas.</p>
 
-      <form action="dashboard.html" method="POST">
+      <form action="{{ route('login') }}" method="POST">
+    @csrf
+
         <div>
           <label for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+          <input type="email" id="email" name="correo" placeholder="tucorreo@ejemplo.com" required>
         </div>
 
         <div>
           <label for="password">Contraseña</label>
-          <input type="password" id="password" name="password" placeholder="********" required>
+          <input type="password" id="password" name="contraseña" placeholder="********" required>
         </div>
 
-        <a href="{{ route('pagina_principal') }}" class="btn">Entrar</a>
+        <button type="submit" class="btn">Entrar</button>
 
       </form>
 
@@ -163,6 +165,12 @@
       </div>
     </div>
   </div>
+
+  @if ($errors->any())
+  <div style="color:red; margin-top: 1rem;">
+    {{ $errors->first() }}
+  </div>
+@endif
 
 </body>
 </html>

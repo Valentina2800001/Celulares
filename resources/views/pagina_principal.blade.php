@@ -190,7 +190,11 @@
       <li><a href="#">Ofertas</a></li>
       <li><a href="#">Contacto</a></li>
     </ul>
-    <button class="logout-btn" onclick="location.href='login.html'">Cerrar sesión</button>
+    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+    @csrf
+    <button type="submit" class="logout-btn">Cerrar sesión</button>
+</form>
+
   </nav>
 
   <main>

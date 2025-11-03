@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Registro de Usuario - Tienda de Celulares</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body, html {
       margin: 0;
       padding: 0;
@@ -93,6 +91,12 @@
     .btn:hover {
       background-color: #0056b3;
     }
+
+    .errors {
+      color: red;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
   </style>
 </head>
 <body>
@@ -102,20 +106,34 @@
       <h1>Registrar Usuario</h1>
       <p>Completa la información para crear un nuevo administrador.</p>
 
-      <form action="#" method="POST">
+      {{-- 🔴 Mostrar errores de validación --}}
+      @if ($errors->any())
+        <div class="errors">
+          <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
+      {{-- ✅ Formulario correcto --}}
+      <form action="{{ route('usuarios.store') }}" method="POST">
+        @csrf
+
         <div>
           <label for="id">ID</label>
-          <input type="text" id="id" name="id" placeholder="Ej: USR001" required>
+          <input type="text" id="id" name="id" value="{{ old('id') }}" placeholder="Ej: USR001">
         </div>
 
         <div>
           <label for="nombre">Nombre completo</label>
-          <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+          <input type="text" id="nombre" name="nombre" value="{{ old('nombre') }}" placeholder="Ej: Juan Pérez">
         </div>
 
         <div>
           <label for="correo">Correo electrónico</label>
-          <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com" required>
+          <input type="email" id="correo" name="correo" value="{{ old('correo') }}" placeholder="tucorreo@ejemplo.com">
         </div>
 
         <div>
@@ -125,22 +143,23 @@
 
         <div>
           <label for="contraseña">Contraseña</label>
-          <input type="password" id="contraseña" name="contraseña" placeholder="********" required>
+          <input type="password" id="contraseña" name="contraseña" placeholder="********">
         </div>
 
         <div>
           <label for="numIdentificacion">Número de Identificación</label>
-          <input type="number" id="numIdentificacion" name="numIdentificacion" placeholder="Ej: 1234567890" required>
+          <input type="number" id="numIdentificacion" name="numIdentificacion" value="{{ old('numIdentificacion') }}" placeholder="Ej: 1234567890">
         </div>
 
         <div>
           <label for="estado">Estado</label>
-          <select id="estado" name="estado" required>
-            <option value="Activo" selected>Activo</option>
-            <option value="Inactivo">Inactivo</option>
+          <select id="estado" name="estado">
+            <option value="Activo" {{ old('estado') == 'Activo' ? 'selected' : '' }}>Activo</option>
+            <option value="Inactivo" {{ old('estado') == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
           </select>
         </div>
-        <a href="{{ route('pagina_principal') }}" class="btn">Registrar</a>
+
+        <button type="submit" class="btn">Registrar</button>
       </form>
     </div>
   </div>
