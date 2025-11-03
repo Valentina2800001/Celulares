@@ -78,7 +78,8 @@
     <div class="text-content">
       <h1>Encuentra tu próximo celular</h1>
       <p>Explora la mejor selección de smartphones Samsung, iPhone, Redmi, Motorola, Huawei y más. Calidad, tecnología y las últimas novedades al alcance de tu mano.</p>
-      <a href="iniciosesion.html" class="btn">Iniciar Sesión</a>
+      <a href="{{ route('inicio.sesion') }}" class="btn">Iniciar sesión</a>
+
     </div>
   </div>
 

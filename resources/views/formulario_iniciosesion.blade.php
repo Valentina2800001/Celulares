@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Iniciar Sesión - Tienda de Celulares</title>
+  <title>Registro de Usuario - Tienda de Celulares</title>
   <style>
-    /* Reset y base */
     * {
       box-sizing: border-box;
     }
@@ -18,7 +17,6 @@
       color: #3A3A3A;
     }
 
-    /* Contenedor principal */
     .container {
       display: flex;
       flex-direction: column;
@@ -29,12 +27,11 @@
       text-align: center;
     }
 
-    /* Tarjeta de login */
-    .login-card {
+    .form-card {
       background-color: #FFFFFF;
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      max-width: 400px;
+      max-width: 450px;
       width: 100%;
       padding: 2rem;
       display: flex;
@@ -42,19 +39,18 @@
       align-items: center;
     }
 
-    .login-card h1 {
+    .form-card h1 {
       color: #007bff;
       font-size: 2rem;
       margin-bottom: 1rem;
     }
 
-    .login-card p {
+    .form-card p {
       color: #666;
       font-size: 1rem;
       margin-bottom: 2rem;
     }
 
-    /* Campos del formulario */
     form {
       width: 100%;
       display: flex;
@@ -69,8 +65,7 @@
       font-size: 0.95rem;
     }
 
-    input[type="email"],
-    input[type="password"] {
+    input, select {
       width: 100%;
       padding: 0.9rem;
       border: 1px solid #ccc;
@@ -79,8 +74,7 @@
       transition: border-color 0.3s ease;
     }
 
-    input[type="email"]:focus,
-    input[type="password"]:focus {
+    input:focus, select:focus {
       border-color: #007bff;
       outline: none;
     }
@@ -99,68 +93,55 @@
     .btn:hover {
       background-color: #0056b3;
     }
-
-    .extra-links {
-      margin-top: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .extra-links a {
-      color: #007bff;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .extra-links a:hover {
-      color: #0056b3;
-    }
-
-    /* Imagen lateral en pantallas grandes */
-    @media (min-width: 900px) {
-      .container {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 5rem;
-        text-align: left;
-      }
-
-      .hero-image {
-        max-width: 450px;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      }
-    }
   </style>
 </head>
 <body>
 
   <div class="container">
-     <img class="hero-image" src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80" alt="Celulares modernos" />
-    
+    <div class="form-card">
+      <h1>Registrar Usuario</h1>
+      <p>Completa la información para crear un nuevo administrador.</p>
 
-    <div class="login-card">
-      <h1>Iniciar Sesión</h1>
-      <p>Accede a tu cuenta para gestionar productos y explorar ofertas exclusivas.</p>
-
-      <form action="dashboard.html" method="POST">
+      <form action="#" method="POST">
         <div>
-          <label for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+          <label for="id">ID</label>
+          <input type="text" id="id" name="id" placeholder="Ej: USR001" required>
         </div>
 
         <div>
-          <label for="password">Contraseña</label>
-          <input type="password" id="password" name="password" placeholder="********" required>
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
         </div>
 
-        <a href="{{ route('pagina_principal') }}" class="btn">Entrar</a>
+        <div>
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com" required>
+        </div>
 
+        <div>
+          <label for="rol">Rol</label>
+          <input type="text" id="rol" name="rol" value="Administrador" readonly style="background-color:#f0f0f0;">
+        </div>
+
+        <div>
+          <label for="contraseña">Contraseña</label>
+          <input type="password" id="contraseña" name="contraseña" placeholder="********" required>
+        </div>
+
+        <div>
+          <label for="numIdentificacion">Número de Identificación</label>
+          <input type="number" id="numIdentificacion" name="numIdentificacion" placeholder="Ej: 1234567890" required>
+        </div>
+
+        <div>
+          <label for="estado">Estado</label>
+          <select id="estado" name="estado" required>
+            <option value="Activo" selected>Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </div>
+        <a href="{{ route('pagina_principal') }}" class="btn">Registrar</a>
       </form>
-
-      <div class="extra-links">
-        <p>¿No tienes cuenta? <a href="{{route('formulario_iniciosesion')}}">Regístrate aquí</a></p>
-      </div>
     </div>
   </div>
 
