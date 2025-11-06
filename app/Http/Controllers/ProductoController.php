@@ -138,4 +138,22 @@ class ProductoController extends Controller
 
         return redirect()->route('pagina_principal')->with('success', '🗑️ Producto eliminado correctamente.');
     }
+
+        /**
+     * Mostrar productos por categorías.
+     */
+public function mostrarPorCategoria(Request $request)
+{
+    $categoria = $request->input('categoria', 'todas'); // 'todas' por defecto
+
+    if ($categoria == 'todas') {
+        $productos = Producto::all();
+    } else {
+        $productos = Producto::where('categoria_id', $categoria)->get();
+    }
+
+    return view('categorias', compact('productos'));
+}
+
+
 }

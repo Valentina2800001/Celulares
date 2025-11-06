@@ -42,3 +42,6 @@ Route::resource('productos', ProductoController::class);
 Route::get('/sobre_nosotros', function () {
     return view('sobre_nosotros');
 })->name('sobre_nosotros');
+
+// Página de categorías
+Route::get('/categorias', [ProductoController::class, 'mostrarPorCategoria'])->name('categorias');

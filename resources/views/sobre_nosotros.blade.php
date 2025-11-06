@@ -157,7 +157,7 @@
   <nav>
     <div class="logo">Tienda Celulares</div>
     <ul>
-      <li><a href="#">Inicio</a></li>
+      <li><a href="/pagina_principal">Inicio</a></li>
       <li><a href="{{ route('sobre_nosotros') }}">Contáctanos / Sobre nosotros</a></li>
     </ul>
     <form action="{{ route('logout') }}" method="POST" style="display:flex; align-items:center; gap:0.5rem;">

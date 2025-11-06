@@ -12,12 +12,22 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #F2F1EF; /* Gris muy claro cálido */
+      background-color: #e8e7d8; /* Gris muy claro cálido */
       color: #3A3A3A; /* Gris oscuro frío */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-    }
+  }
+
+  .product-card {
+    background-color: #1E1E1E;
+    color: #EAEAEA;
+  }
+  footer {
+    background-color: #1A1A1A;
+    color: #CCCCCC;
+  }
+
     a {
       text-decoration: none;
       color: inherit;
@@ -63,7 +73,7 @@
       background-color: #F5A623; /* Naranja coral suave */
       border: none;
       padding: 0.9rem 1rem;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
       font-weight: 700;
       color: white;
@@ -216,6 +226,33 @@
   font-size: 1.2rem;
 }
 
+  .add-product-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .hint-text {
+    color: #555;
+    font-size: 1.05em;
+    margin-bottom: 12px;
+  }
+
+  .add-product-btn {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(59,130,246,0.3);
+    transition: all 0.3s ease;
+  }
+
+  .add-product-btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+  }
+
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
@@ -236,9 +273,15 @@
 @endif
 
   <nav>
-    <div class="logo">Tienda Celulares</div>
+<img src="{{ asset('Imagenes/logo.png') }}" 
+     alt="Logo de Tienda de Celulares" 
+     style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">
+
+    <div class="logo" style="margin-left: 20px;">Tienda Celulares</div>
+
     <ul>
       <li><a href="#">Inicio</a></li>
+      <li><a href="{{ route('categorias') }}">Categorias</a></li>
       <li><a href="{{ route('sobre_nosotros') }}" class="btn">Contactanos / Sobre nosotros</a>
     </ul>
     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
@@ -251,12 +294,12 @@
   <h1>¡Bienvenido!</h1>
   <p class="welcome-msg">Explora nuestra amplia selección de celulares y encuentra el que se adapta a ti.</p>
 
-  <!-- 🔹 Botón Agregar Producto -->
-  <div class="add-product-container">
-    <a href="{{ route('formulario_productos') }}" class="add-product-btn">
-      <i class="fas fa-plus"></i> Agregar Producto
-    </a>
-  </div>
+    <div class="add-product-container">
+      <p class="hint-text">Agrega tus productos al instante y mantén tu tienda actualizada.</p>
+      <a href="{{ route('formulario_productos') }}" class="add-product-btn">
+        <i class="fas fa-plus-circle"></i> Añadir Producto
+      </a>
+    </div>
 
   <div class="product-grid">
     @forelse($productos as $producto)
@@ -292,6 +335,5 @@
       <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
     </div>
   </footer>
-
 </body>
 </html>
