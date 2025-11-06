@@ -162,7 +162,6 @@
     </ul>
     <form action="{{ route('logout') }}" method="POST" style="display:flex; align-items:center; gap:0.5rem;">
       @csrf
-      <a href="{{ route('formulario_productos') }}" class="btn">Agregar Producto</a>
       <button type="submit" class="logout-btn">Cerrar sesión</button>
     </form>
   </nav>

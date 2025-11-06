@@ -34,7 +34,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 0 2rem;
-      height: 60px;
+      height: 80px;
       z-index: 1000;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
@@ -62,10 +62,10 @@
     nav .logout-btn {
       background-color: #F5A623; /* Naranja coral suave */
       border: none;
-      padding: 0.4rem 1rem;
-      border-radius: 4px;
+      padding: 0.9rem 1rem;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       color: white;
       transition: background-color 0.3s ease;
     }
@@ -186,6 +186,36 @@
         padding: 80px 1rem 1rem;
       }
     }
+
+    .add-product-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.add-product-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4A90E2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-product-btn:hover {
+  background-color: #357ABD;
+  transform: translateY(-2px);
+}
+
+.add-product-btn i {
+  font-size: 1.2rem;
+}
+
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
@@ -213,38 +243,44 @@
     </ul>
     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
       @csrf
-      <a href="{{ route('formulario_productos') }}" class="btn btn-primary" style="background:#4A90E2;color:white;padding:6px 12px;border-radius:4px;">Agregar Producto</a>
       <button type="submit" class="logout-btn">Cerrar sesión</button>
     </form>
   </nav>
 
   <main>
-    <h1>¡Bienvenido!</h1>
-    <p class="welcome-msg">Explora nuestra amplia selección de celulares y encuentra el que se adapta a ti.</p>
+  <h1>¡Bienvenido!</h1>
+  <p class="welcome-msg">Explora nuestra amplia selección de celulares y encuentra el que se adapta a ti.</p>
 
-    <div class="product-grid">
-      @forelse($productos as $producto)
-        <div class="product-card">
-          @if($producto->imagen)
-            <img src="{{ asset('imagenes_productos/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="product-image">
-          @else
-            <img src="https://via.placeholder.com/220x140?text=Sin+imagen" alt="Sin imagen" class="product-image">
-          @endif
-          <div class="product-info">
-            <div>
-              <div class="product-name">{{ $producto->nombre }}</div>
-              <div class="product-price">${{ number_format($producto->precio, 0, ',', '.') }}</div>
-              <p>{{ $producto->descripcion }}</p>
-            </div>
+  <!-- 🔹 Botón Agregar Producto -->
+  <div class="add-product-container">
+    <a href="{{ route('formulario_productos') }}" class="add-product-btn">
+      <i class="fas fa-plus"></i> Agregar Producto
+    </a>
+  </div>
 
-            <a href="{{ route('productos.show', $producto->id) }}" class="details-btn">Ver detalles</a>
+  <div class="product-grid">
+    @forelse($productos as $producto)
+      <div class="product-card">
+        @if($producto->imagen)
+          <img src="{{ asset('imagenes_productos/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="product-image">
+        @else
+          <img src="https://via.placeholder.com/220x140?text=Sin+imagen" alt="Sin imagen" class="product-image">
+        @endif
+        <div class="product-info">
+          <div>
+            <div class="product-name">{{ $producto->nombre }}</div>
+            <div class="product-price">${{ number_format($producto->precio, 0, ',', '.') }}</div>
+            <p>{{ $producto->descripcion }}</p>
           </div>
+          <a href="{{ route('productos.show', $producto->id) }}" class="details-btn">Ver detalles</a>
         </div>
-      @empty
-        <p>No hay productos registrados aún.</p>
-      @endforelse
-    </div>
-  </main>
+      </div>
+    @empty
+      <p>No hay productos registrados aún.</p>
+    @endforelse
+  </div>
+</main>
+
 
   <footer>
     <p>&copy; 2025 Tienda de Celulares. Todos los derechos reservados.</p>
