@@ -85,12 +85,12 @@
       font-weight: 700;
       font-size: 2.2rem;
       margin-bottom: 1rem;
-      color: #3A3A3A; /* Gris oscuro frío */
+      color: #3A3A3A;
     }
     p.welcome-msg {
       font-size: 1.1rem;
       margin-bottom: 2rem;
-      color: #9B9B9B; /* Gris medio */
+      color: #9B9B9B;
     }
 
     /* Grid de productos */
@@ -100,14 +100,13 @@
       gap: 1.5rem;
     }
     .product-card {
-      background-color: #FFFFFF; /* Blanco con toque cálido */
+      background-color: #FFFFFF;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.07);
       display: flex;
       flex-direction: column;
       overflow: hidden;
       transition: transform 0.2s ease;
-      cursor: pointer;
     }
     .product-card:hover {
       transform: translateY(-5px);
@@ -130,22 +129,36 @@
       font-weight: 700;
       font-size: 1rem;
       margin-bottom: 0.5rem;
-      color: #3A3A3A; /* Gris oscuro frío */
+      color: #3A3A3A;
     }
     .product-price {
-      color: #4A90E2; /* Azul acero suave */
+      color: #4A90E2;
       font-weight: 700;
       font-size: 1.1rem;
+    }
+    .details-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 12px;
+      background: #4A90E2;
+      color: white;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .details-btn:hover {
+      background: #357ABD;
     }
 
     /* Footer */
     footer {
-      background-color: #EAE8E4; /* Gris muy claro cálido */
-      color: #3A3A3A; /* Gris oscuro frío */
+      background-color: #EAE8E4;
+      color: #3A3A3A;
       padding: 1.5rem 2rem;
       text-align: center;
       margin-top: auto;
-      border-top: 1px solid #9B9B9B; /* Gris medio */
+      border-top: 1px solid #9B9B9B;
     }
     footer p {
       margin: 0.2rem 0;
@@ -155,49 +168,54 @@
     }
     footer .social-links a {
       margin: 0 0.20rem;
-      color: #3A3A3A; /* Gris oscuro frío */
+      color: #3A3A3A;
       font-size: 1.2rem;
       display: inline-block;
       transition: color 0.3s ease;
     }
     footer .social-links a:hover {
-      color: #4A90E2; /* Azul acero suave */
+      color: #4A90E2;
     }
 
     /* Responsive */
     @media(max-width: 600px) {
       nav ul {
-        display: none; /* para simplificar en móvil */
+        display: none;
       }
       main {
         padding: 80px 1rem 1rem;
       }
-      .product-card {
-        height: auto;
-      }
     }
   </style>
-  <!-- Puedes añadir iconos de redes sociales con fontawesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
+
+@if (session('success'))
+  <div style="
+    background-color: #DFF2BF;
+    color: #4F8A10;
+    padding: 12px;
+    margin: 15px auto;
+    border-radius: 6px;
+    width: 80%;
+    text-align: center;
+    font-weight: bold;">
+    {{ session('success') }}
+  </div>
+@endif
 
   <nav>
     <div class="logo">Tienda Celulares</div>
     <ul>
       <li><a href="#">Inicio</a></li>
-      <li><a href="#">Productos</a></li>
-      <li><a href="#">Ofertas</a></li>
-      <li><a href="#">Contacto</a></li>
+      <li><a href="{{ route('sobre_nosotros') }}" class="btn">Contactanos / Sobre nosotros</a>
     </ul>
     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-    @csrf
-
-    <a href="{{ route('formulario_productos') }}" class="btn btn-primary">Agregar Producto</a>
-
-    <button type="submit" class="logout-btn">Cerrar sesión</button>
-</form>
-
+      @csrf
+      <a href="{{ route('formulario_productos') }}" class="btn btn-primary" style="background:#4A90E2;color:white;padding:6px 12px;border-radius:4px;">Agregar Producto</a>
+      <button type="submit" class="logout-btn">Cerrar sesión</button>
+    </form>
   </nav>
 
   <main>
@@ -208,21 +226,25 @@
       @forelse($productos as $producto)
         <div class="product-card">
           @if($producto->imagen)
-            <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="product-image">
+            <img src="{{ asset('imagenes_productos/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="product-image">
           @else
             <img src="https://via.placeholder.com/220x140?text=Sin+imagen" alt="Sin imagen" class="product-image">
           @endif
           <div class="product-info">
-            <div class="product-name">{{ $producto->nombre }}</div>
-            <div class="product-price">${{ number_format($producto->precio, 0, ',', '.') }}</div>
-            <p>{{ $producto->descripcion }}</p>
+            <div>
+              <div class="product-name">{{ $producto->nombre }}</div>
+              <div class="product-price">${{ number_format($producto->precio, 0, ',', '.') }}</div>
+              <p>{{ $producto->descripcion }}</p>
+            </div>
+
+            <a href="{{ route('productos.show', $producto->id) }}" class="details-btn">Ver detalles</a>
           </div>
         </div>
       @empty
         <p>No hay productos registrados aún.</p>
       @endforelse
     </div>
-
+  </main>
 
   <footer>
     <p>&copy; 2025 Tienda de Celulares. Todos los derechos reservados.</p>
