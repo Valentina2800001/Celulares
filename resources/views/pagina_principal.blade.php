@@ -20,11 +20,11 @@
   }
 
   .product-card {
-    background-color: #1E1E1E;
-    color: #EAEAEA;
+    background-color: #1e1e1eff;
+    color: #000000ff;
   }
   footer {
-    background-color: #1A1A1A;
+    background-color: #1a1a1aff;
     color: #CCCCCC;
   }
 
@@ -139,7 +139,7 @@
       font-weight: 700;
       font-size: 1rem;
       margin-bottom: 0.5rem;
-      color: #3A3A3A;
+      color: #000000ff;
     }
     .product-price {
       color: #4A90E2;

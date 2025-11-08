@@ -14,7 +14,7 @@
       padding: 0;
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f8;
+      background-color: #e8e7d8;
       color: #3A3A3A;
     }
 

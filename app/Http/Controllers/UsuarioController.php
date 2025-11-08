@@ -7,30 +7,36 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
-    // 📄 Mostrar lista de usuarios
+    // Constantes de validación para evitar duplicación
+    private const REGLA_TEXTO_50 = 'required|string|max:50';
+    private const REGLA_TEXTO_100 = 'required|string|max:100';
+    private const REGLA_CORREO = 'required|email';
+    private const REGLA_ENTERO = 'required|integer';
+
+    // Constante para evitar duplicar el nombre del campo "contraseña"
+    private const CAMPO_CONTRASENA = 'contraseña';
+
     public function index()
     {
         $usuarios = Usuario::all();
         return view('pagina_principal', compact('usuarios'));
     }
 
-    // 🆕 Mostrar formulario de creación
     public function create()
     {
         return view('usuarios.create');
     }
 
-    // 💾 Guardar nuevo usuario
     public function store(Request $request)
     {
         $request->validate([
             'id' => 'required|unique:usuario,id',
-            'nombre' => 'required|string|max:100',
-            'correo' => 'required|email|unique:usuario,correo',
-            'rol' => 'required|string|max:50',
-            'contraseña' => 'required|string',
-            'numIdentificacion' => 'required|integer',
-            'estado' => 'required|string|max:50',
+            'nombre' => self::REGLA_TEXTO_100,
+            'correo' => self::REGLA_CORREO . '|unique:usuario,correo',
+            'rol' => self::REGLA_TEXTO_50,
+            self::CAMPO_CONTRASENA => 'required|string',
+            'numIdentificacion' => self::REGLA_ENTERO,
+            'estado' => self::REGLA_TEXTO_50,
         ]);
 
         Usuario::create([
@@ -38,7 +44,7 @@ class UsuarioController extends Controller
             'nombre' => $request->nombre,
             'correo' => $request->correo,
             'rol' => $request->rol,
-            'contraseña' => bcrypt($request->contraseña),
+            self::CAMPO_CONTRASENA => bcrypt($request->{self::CAMPO_CONTRASENA}),
             'numIdentificacion' => $request->numIdentificacion,
             'estado' => $request->estado,
         ]);
@@ -46,31 +52,28 @@ class UsuarioController extends Controller
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado correctamente.');
     }
 
-    // 👁️ Mostrar usuario específico
     public function show($id)
     {
         $usuario = Usuario::findOrFail($id);
         return view('usuarios.show', compact('usuario'));
     }
 
-    // ✏️ Mostrar formulario para editar
     public function edit($id)
     {
         $usuario = Usuario::findOrFail($id);
         return view('usuarios.edit', compact('usuario'));
     }
 
-    // 🔄 Actualizar usuario
     public function update(Request $request, $id)
     {
         $usuario = Usuario::findOrFail($id);
 
         $request->validate([
-            'nombre' => 'required|string|max:100',
-            'correo' => 'required|email|unique:usuario,correo,' . $id . ',id',
-            'rol' => 'required|string|max:50',
-            'numIdentificacion' => 'required|integer',
-            'estado' => 'required|string|max:50',
+            'nombre' => self::REGLA_TEXTO_100,
+            'correo' => self::REGLA_CORREO . '|unique:usuario,correo,' . $id . ',id',
+            'rol' => self::REGLA_TEXTO_50,
+            'numIdentificacion' => self::REGLA_ENTERO,
+            'estado' => self::REGLA_TEXTO_50,
         ]);
 
         $usuario->update([
@@ -79,13 +82,14 @@ class UsuarioController extends Controller
             'rol' => $request->rol,
             'numIdentificacion' => $request->numIdentificacion,
             'estado' => $request->estado,
-            'contraseña' => $request->contraseña ? bcrypt($request->contraseña) : $usuario->contraseña,
+            self::CAMPO_CONTRASENA => $request->{self::CAMPO_CONTRASENA}
+                ? bcrypt($request->{self::CAMPO_CONTRASENA})
+                : $usuario->{self::CAMPO_CONTRASENA},
         ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente.');
     }
 
-    // 🗑️ Eliminar usuario
     public function destroy($id)
     {
         $usuario = Usuario::findOrFail($id);

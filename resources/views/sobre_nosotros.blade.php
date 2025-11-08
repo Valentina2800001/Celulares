@@ -177,7 +177,7 @@
     <section class="section">
       <h2>Quiénes Somos</h2>
       <p>
-        En <strong>Tienda de Celulares</strong> somos una empresa dedicada a ofrecer los mejores dispositivos móviles del mercado. 
+        En <strong>Tienda de Celulares</strong> somos una empresa dedicada a ofrecer los mejores dispositivos móviles del mercado.
         Nos apasiona la tecnología y trabajamos día a día para brindar a nuestros clientes productos originales, con garantía y al mejor precio.
       </p>
       <p>
@@ -188,7 +188,7 @@
     <section class="section">
       <h2>Nuestra Misión</h2>
       <p>
-        Facilitar el acceso a la tecnología móvil de calidad, ofreciendo una experiencia de compra confiable, rápida y segura. 
+        Facilitar el acceso a la tecnología móvil de calidad, ofreciendo una experiencia de compra confiable, rápida y segura.
         Nos comprometemos con la satisfacción de nuestros clientes, brindando asesoría personalizada y un servicio posventa responsable.
       </p>
     </section>
@@ -196,7 +196,7 @@
     <section class="section">
       <h2>Contáctanos</h2>
       <p>
-        Si deseas comunicarte con nosotros para resolver dudas, conocer más sobre nuestros productos o recibir asesoría personalizada, 
+        Si deseas comunicarte con nosotros para resolver dudas, conocer más sobre nuestros productos o recibir asesoría personalizada,
         puedes escribirnos o visitarnos en los siguientes canales:
       </p>
       <ul>

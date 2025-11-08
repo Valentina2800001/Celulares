@@ -52,16 +52,16 @@
 
     .category-filter { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 2rem; }
     select { padding: 10px 14px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
-    .search-btn { 
-      display: inline-flex; 
-      align-items: center; 
-      gap: 6px; 
-      background-color: #4A90E2; 
-      color: white; 
-      border-radius: 6px; 
-      padding: 8px 16px; 
-      font-weight: 600; 
-      cursor: pointer; 
+    .search-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #4A90E2;
+      color: white;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-weight: 600;
+      cursor: pointer;
       border: none;
       transition: background 0.3s ease;
     }
